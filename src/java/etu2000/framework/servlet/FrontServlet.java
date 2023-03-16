@@ -1,34 +1,38 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package etu2000.framework.servlet;
 
 import etu2000.framework.Mapping;
+import etu2000.framework.controllers.Url;
+import etu2000.framework.util.Utility;
+import etu2000.models.Employee;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
 public class FrontServlet extends HttpServlet {
-    HashMap<String, Mapping> MappingUrls;
-
-    public HashMap<String, Mapping> getMappingUrls() {
-        return MappingUrls;
-    }
-
-    public void setMappingUrls(HashMap<String, Mapping> MappingUrls) {
-        this.MappingUrls = MappingUrls;
+    HashMap<String, Mapping> mappingUrls;
+    
+    @Override
+    public void init() {
+        Vector<Class<?>> classes=new Vector<>();
+        for(Class clazz : Utility.getAllClasses(classes, "etu2000.models")){
+            mappingUrls=Utility.initHashMap(clazz);
+        }
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            out.println("<p>"+request.getRequestURL()+"</p>");
+        try (PrintWriter out = response.getWriter()) {
+            for (Map.Entry<String, Mapping> entry : mappingUrls.entrySet()) {
+                out.println("Key: " + entry.getKey() + ", Class: " + entry.getValue().getClassName() + ", Method: " + entry.getValue().getMethod());
+            }
         }
     }
 
