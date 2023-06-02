@@ -2,9 +2,7 @@
 <%@page import="model.Employee"%>
 <%@page import="java.util.Vector"%>
 <% 
-    out.println("oui");
     Vector<String> noms = (Vector<String>) request.getAttribute("allEmployees");
-    out.println("ok");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,8 +14,7 @@
 </head>
 <body>
     <% for(int i=0; i<noms.size(); i++) { %>
-        <p><%= noms.get(i); %></p>
+        <p><% out.print(noms.get(i)); %></p>
     <% } %>
-    <p>yooooooo</p>
 </body>
 </html>
