@@ -28,7 +28,20 @@ public class Employee {
     
     @Url("find-emp")
     public ModelView findAll(){
+<<<<<<< Updated upstream
         ModelView view = new ModelView("list.jsp");
+=======
+        ModelView view = new ModelView("test.jsp");
+        Vector<String> noms = new Vector<>();
+        noms.add("Diana");
+        noms.add("Megane");
+        view.addItem("allEmployees", noms);
+>>>>>>> Stashed changes
         return view;
+    }
+
+    @Url("save-emp")
+    public String save(){
+        return this.getName();
     }
 }
