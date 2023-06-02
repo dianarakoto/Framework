@@ -29,12 +29,16 @@ public class Employee {
     
     @Url("find-emp")
     public ModelView findAll(){
-        ModelView view = new ModelView("test.jsp");
+        ModelView view = new ModelView("list.jsp");
         Vector<String> noms = new Vector<>();
         noms.add("Diana");
-        noms.add("Megane");
-        // view.setView("list.jsp");
+        noms.add("Megane);
         view.addItem("allEmployees", noms);
         return view;
+    }
+
+    @Url("save-emp")
+    public String save(){
+        return this.getName();
     }
 }
